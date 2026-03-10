@@ -2,7 +2,7 @@
 
 import { createConfig, http } from "wagmi";
 import { base, baseSepolia } from "wagmi/chains";
-import { injected, walletConnect } from "wagmi/connectors";
+import { injected, walletConnect, coinbaseWallet } from "wagmi/connectors";
 
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID ?? "";
 const chainId = process.env.NEXT_PUBLIC_CHAIN_ID
@@ -17,6 +17,7 @@ export const config = createConfig({
   chains: [baseSepolia, base],
   connectors: [
     injected(),
+    coinbaseWallet({ appName: "WeteEgo" }),
     ...(projectId ? [walletConnect({ projectId })] : []),
   ],
   transports: {
