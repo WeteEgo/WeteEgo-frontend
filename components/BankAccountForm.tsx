@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
 
 export const NIGERIAN_BANKS = [
   { code: "GTBINGLA", name: "GTBank" },
@@ -48,51 +50,44 @@ export default function BankAccountForm({
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Bank
-        </label>
-        <select
+        <label className="mb-1 block text-xs font-medium text-slate-200">Bank</label>
+        <Select
           value={value.bankCode}
           onChange={(e) => onChange({ ...value, bankCode: e.target.value })}
           disabled={disabled}
-          className="w-full border rounded px-3 py-2"
         >
           {NIGERIAN_BANKS.map((b) => (
             <option key={b.code} value={b.code}>
               {b.name}
             </option>
           ))}
-        </select>
+        </Select>
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="mb-1 block text-xs font-medium text-slate-200">
           Account number (NUBAN)
         </label>
-        <input
+        <Input
           type="text"
           inputMode="numeric"
           placeholder="0123456789"
           value={value.accountNumber}
           onChange={(e) => handleAccountNumberChange(e.target.value)}
           disabled={disabled}
-          className="w-full border rounded px-3 py-2"
           maxLength={NUBAN_LENGTH}
+          error={error ?? undefined}
         />
-        {error && <p className="text-sm text-red-600 mt-1">{error}</p>}
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Account name
-        </label>
-        <input
+        <label className="mb-1 block text-xs font-medium text-slate-200">Account name</label>
+        <Input
           type="text"
           placeholder="As shown on your bank account"
           value={value.accountName}
           onChange={(e) => onChange({ ...value, accountName: e.target.value })}
           disabled={disabled}
-          className="w-full border rounded px-3 py-2"
         />
       </div>
     </div>
