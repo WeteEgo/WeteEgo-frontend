@@ -3,18 +3,28 @@
 @tailwind utilities;
 
 :root {
-  --foreground: #0a0a0a;
-  --background: #fafafa;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground: #fafafa;
-    --background: #0a0a0a;
-  }
+  --bg-page: #020617;
+  --bg-card: #0f172a;
+  --bg-card-soft: #020617;
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+  --border-subtle: #1e293b;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  @apply min-h-screen antialiased;
+  color: var(--text-main);
+  background: radial-gradient(circle at top, #020617 0, #020617 40%, #000 100%);
+}
+
+.app-shell {
+  @apply min-h-screen flex flex-col;
+}
+
+.app-main {
+  @apply flex-1 flex justify-center px-4 py-10 md:px-6 lg:px-8;
+}
+
+.app-container {
+  @apply w-full max-w-4xl mx-auto;
 }
