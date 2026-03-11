@@ -30,5 +30,8 @@ yarn-error.log*
 # OS
 .DS_Store
 
+# TypeScript incremental build
+tsconfig.tsbuildinfo
+
 # Vercel
 .vercel
