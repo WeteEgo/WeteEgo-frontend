@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
+import { SiteHeader } from "@/components/layout/SiteHeader";
 
 export const metadata: Metadata = {
   title: "WeteEgo — Crypto to Fiat on Base",
@@ -14,8 +15,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased min-h-screen">
-        <Providers>{children}</Providers>
+      <body>
+        <Providers>
+          <div className="app-shell">
+            <SiteHeader />
+            <main className="app-main">
+              <div className="app-container">{children}</div>
+            </main>
+            <footer className="border-t border-[var(--border-subtle)]/60 py-4 text-xs text-center text-[var(--text-muted)]">
+              WeteEgo · Built for the Base ecosystem
+            </footer>
+          </div>
+        </Providers>
       </body>
     </html>
   );
