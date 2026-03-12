@@ -464,7 +464,7 @@ export default function Home() {
 
           {step === 2 && (
             <div className="space-y-5">
-              <BankAccountForm value={bankAccount} onChange={setBankAccount} />
+              <BankAccountForm value={bankAccount} onChange={setBankAccount} apiUrl={API_URL} />
               <div className="flex flex-col gap-2 sm:flex-row sm:justify-between">
                 <Button
                   variant="ghost"
