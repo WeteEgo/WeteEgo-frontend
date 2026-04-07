@@ -4,6 +4,10 @@ import { useState, useEffect, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import {
+  isBankAccountValid as isBankAccountComplete,
+  type BankAccountFields,
+} from "@/lib/bankAccountValidation";
 
 export const NIGERIAN_BANKS = [
   { code: "GTBINGLA", name: "GTBank" },
@@ -14,11 +18,7 @@ export const NIGERIAN_BANKS = [
   { code: "STBINGLA", name: "Stanbic IBTC" },
 ] as const;
 
-export interface BankAccount {
-  accountNumber: string;
-  bankCode: string;
-  accountName: string;
-}
+export interface BankAccount extends BankAccountFields {}
 
 interface BankAccountFormProps {
   value: BankAccount;
@@ -218,9 +218,5 @@ export default function BankAccountForm({
 }
 
 export function isBankAccountValid(account: BankAccount): boolean {
-  return (
-    account.accountNumber.replace(/\D/g, "").length === NUBAN_LENGTH &&
-    account.bankCode.length > 0 &&
-    account.accountName.trim().length > 0
-  );
+  return isBankAccountComplete(account);
 }
