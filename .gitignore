@@ -35,3 +35,6 @@ tsconfig.tsbuildinfo
 
 # Vercel
 .vercel
+
+# Playwright
+test-results/
