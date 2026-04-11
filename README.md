@@ -1,6 +1,6 @@
 # WeteEgo-frontend
 
-Main dApp for stablecoin-to-fiat on Base. Users connect a wallet, enter USDC amount and target fiat (e.g. NGN), approve USDC, and convert — funds are forwarded to the **Paycrest** gateway via WeteEgoRouter for settlement.
+Main dApp for stablecoin-to-fiat on Base. Users connect a wallet, enter USDC and bank details, approve USDC, and call **WeteEgoGateway** to escrow funds; WeteEgo orchestrates settlement (today’s fiat leg runs through **Paycrest** as the integrated settlement network).
 
 ## Stack
 
@@ -26,7 +26,7 @@ Open [http://localhost:3000](http://localhost:3000).
 1. Connect wallet (injected or WalletConnect); switch to Base Sepolia or Base if needed.
 2. Enter amount (USDC) and target fiat currency.
 3. Click **Approve USDC** (if allowance &lt; amount).
-4. Click **Convert** — calls `WeteEgoRouter.forwardERC20(USDC, amount, ref)`; router forwards to Paycrest settlement address.
+4. Click **Convert** — calls `WeteEgoGateway.createOrder` with the backend-issued `settlementRef`; USDC is held in escrow while fiat payout is coordinated.
 5. View tx status and link to Basescan.
 
 ## Design system
