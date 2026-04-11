@@ -15,23 +15,23 @@ const config: Config = {
       colors: {
         brand: {
           DEFAULT: "#2563EB",
-          soft: "#EFF4FF",
-          foreground: "#0B1220",
+          soft: "#1e3a5f",
+          foreground: "#f0f4ff",
         },
         surface: {
-          DEFAULT: "#FFFFFF",
-          muted: "#F4F4F5",
-          inverted: "#020617",
+          DEFAULT: "#0f1a2e",
+          muted: "#152238",
+          inverted: "#f0f4ff",
         },
         border: {
-          subtle: "#E4E4E7",
+          subtle: "rgb(255 255 255 / <alpha-value>)",
         },
-        success: "#16A34A",
-        warning: "#F59E0B",
+        success: "#00ff88",
+        warning: "#ffb800",
         danger: "#DC2626",
       },
       boxShadow: {
-        card: "0 18px 45px rgba(15, 23, 42, 0.08)",
+        card: "0 1px 0 rgba(255,255,255,0.06) inset, 0 18px 45px rgba(0,0,0,0.5)",
         focus: "0 0 0 1px rgba(37, 99, 235, 0.22), 0 0 0 4px rgba(37, 99, 235, 0.14)",
         "landing-glow":
           "0 0 0 1px rgba(0,212,255,0.12), 0 24px 80px rgba(0,0,0,0.45), 0 0 80px rgba(0,212,255,0.06)",

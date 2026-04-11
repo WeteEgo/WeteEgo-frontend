@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Critical shell: plain CSS only (no @apply). If PostCSS/Tailwind ever fails to
+ * expand @apply, those rules are dropped entirely by the browser — which looks
+ * like “everything unstyled”. These declarations always parse.
+ */
+html {
+  color-scheme: dark;
+}
+
 /* Dark Sovereign Glass — shared tokens (convert inherits legacy aliases) */
 :root {
   --bg-deep: #050a14;
@@ -36,7 +45,10 @@
 }
 
 body {
-  @apply min-h-screen antialiased;
+  margin: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   color: var(--text-main);
   background: radial-gradient(
@@ -67,17 +79,39 @@ body::after {
 }
 
 .app-shell {
-  @apply min-h-screen flex flex-col;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
   position: relative;
   z-index: 0;
 }
 
 .app-main {
-  @apply flex-1 flex justify-center px-4 py-10 md:px-6 lg:px-8;
+  flex: 1 1 0%;
+  display: flex;
+  justify-content: center;
+  padding: 2.5rem 1rem;
+}
+
+@media (min-width: 768px) {
+  .app-main {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .app-main {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
 
 .app-container {
-  @apply w-full max-w-4xl mx-auto;
+  width: 100%;
+  max-width: 56rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @keyframes fadeUp {

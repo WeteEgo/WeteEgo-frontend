@@ -41,6 +41,17 @@ The frontend uses a small Tailwind-based design system:
 
 When adding new screens, prefer building with these primitives so typography, spacing, and states stay consistent.
 
+## Docs at `/docs` (Vercel + Mintlify)
+
+If you want **`yoursite.com/docs`** (or `*.vercel.app/docs`) while the app stays on Vercel:
+
+1. In [Mintlify Custom domain](https://dashboard.mintlify.com/settings/deployment/custom-domain), add your domain and enable **Host at `/docs`** (see [Mintlify + Vercel](https://mintlify.com/docs/deploy/vercel)).
+2. Copy your **Mintlify subdomain** from the dashboard URL (the segment after your org — **not** the `0xverse` value from Mintlify’s generic samples).
+3. Edit **`vercel.json`** in this repo: replace `weteego` in `weteego.mintlify.dev` with that subdomain if yours differs.
+4. Set **`NEXT_PUBLIC_DOCS_URL`** to your public docs base, e.g. `https://weteego.vercel.app/docs` or your production domain with `/docs`.
+
+If docs use a **dedicated subdomain** only (e.g. **docs.weteego.com** → Mintlify via DNS), you do **not** need `vercel.json` rewrites; point **`NEXT_PUBLIC_DOCS_URL`** to `https://docs.weteego.com`.
+
 ## Env vars
 
 | Variable | Description |
@@ -50,6 +61,7 @@ When adding new screens, prefer building with these primitives so typography, sp
 | `NEXT_PUBLIC_GATEWAY_ADDRESS` or router | Deployed gateway/router address |
 | `NEXT_PUBLIC_RPC_URL` | RPC URL for the chain |
 | `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` | WalletConnect Cloud project ID (optional) |
+| `NEXT_PUBLIC_DOCS_URL` | Mintlify URL: dedicated subdomain and/or `/docs` on this deployment |
 
 ## "Failed to create order" / Convert not working
 

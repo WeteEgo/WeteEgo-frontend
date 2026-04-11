@@ -11,19 +11,24 @@ import { motion, useReducedMotion } from "framer-motion";
 import { GlowBackdrop } from "./GlowBackdrop";
 import { ConversionPreview } from "./ConversionPreview";
 
-const DOCS_URL =
-  process.env.NEXT_PUBLIC_DOCS_URL ?? "https://github.com/WeteEgo/WeteEgo-docs";
+const DOCS_URL = process.env.NEXT_PUBLIC_DOCS_URL ?? "https://docs.weteego.com";
 
-function splitHeadlineChars(el: HTMLElement) {
-  const text = el.textContent ?? "";
-  el.innerHTML = text
-    .split("")
-    .map((ch) => {
-      const safe = ch === " " ? "\u00a0" : ch;
-      return `<span class="hero-char inline-block">${safe}</span>`;
-    })
-    .join("");
-  return el.querySelectorAll<HTMLElement>(".hero-char");
+/**
+ * Word-level wraps preserve normal line-breaking (spaces stay breakable).
+ * Per-character + nbsp made the headline one long unbreakable run and caused
+ * mid-word wraps and flaky layout at intermediate viewports.
+ */
+function splitHeadlineWords(el: HTMLElement): HTMLElement[] {
+  const text = (el.textContent ?? "").trim();
+  if (!text) return [];
+  const words = text.split(/\s+/);
+  el.innerHTML = words
+    .map(
+      (word) =>
+        `<span class="hero-word inline-block will-change-transform">${word}</span>`
+    )
+    .join(" ");
+  return Array.from(el.querySelectorAll<HTMLElement>(".hero-word"));
 }
 
 export function HeroSection() {
@@ -38,13 +43,14 @@ export function HeroSection() {
       const h = headlineRef.current;
       const sub = sublineRef.current;
       if (!h) return;
-      const chars = splitHeadlineChars(h);
-      gsap.set(chars, { opacity: 0, y: 52 });
-      gsap.to(chars, {
+      const words = splitHeadlineWords(h);
+      if (words.length === 0) return;
+      gsap.set(words, { opacity: 0, y: 36 });
+      gsap.to(words, {
         opacity: 1,
         y: 0,
-        duration: 0.55,
-        stagger: 0.02,
+        duration: 0.5,
+        stagger: 0.06,
         ease: "power3.out",
         delay: 0.06,
       });
@@ -68,7 +74,7 @@ export function HeroSection() {
 
       <div ref={rootRef} className="relative mx-auto w-full max-w-6xl">
         <div className="grid items-center gap-12 lg:grid-cols-[1fr,minmax(280px,400px)] lg:gap-14">
-          <div>
+          <div className="min-w-0">
             <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--border-glass)] bg-white/[0.04] px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[var(--accent-cyan)] backdrop-blur-sm">
               <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-gold)]" aria-hidden />
               Paycrest Sender → sovereign rails
@@ -77,7 +83,7 @@ export function HeroSection() {
             <h1
               ref={headlineRef}
               id="hero-heading"
-              className="font-display max-w-4xl text-[clamp(2.25rem,5vw+1rem,3.75rem)] leading-[1.08] tracking-tight text-white lg:text-[clamp(2.75rem,5.5vw+0.5rem,4.25rem)]"
+              className="font-display max-w-full text-pretty text-[clamp(2rem,4.2vw+0.85rem,3.75rem)] leading-[1.12] tracking-tight text-white sm:max-w-2xl md:max-w-3xl lg:max-w-4xl lg:text-[clamp(2.5rem,4vw+0.75rem,4.25rem)] lg:leading-[1.1]"
             >
               Move money at protocol speed.
             </h1>

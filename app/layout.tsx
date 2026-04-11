@@ -57,7 +57,7 @@ export default function RootLayout({
                 <p>WeteEgo · Stablecoin to fiat on Base</p>
                 <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
                   <a
-                    href={process.env.NEXT_PUBLIC_DOCS_URL ?? "https://github.com/WeteEgo/WeteEgo-docs"}
+                    href={process.env.NEXT_PUBLIC_DOCS_URL ?? "https://docs.weteego.com"}
                     className="focus-ring rounded text-[var(--text-muted)] hover:text-[var(--accent-cyan)]"
                     target="_blank"
                     rel="noopener noreferrer"
